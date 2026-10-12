@@ -1,8 +1,7 @@
 // assets/javascript/dashboard.js
 //
-// Handles: polling api/get_data.php on a timer, updating the DOM
-// with the results, the theme toggle, the sound toggle, the
-// "new coin" ping + pulse animation, and savings goals CRUD.
+// Handles polling api/get_data.php on a timer, updating the DOM
+// with results, theme/sound toggles, and the wrong-coin correction widget.
 
 const POLL_INTERVAL_MS = 2000;
 
@@ -10,38 +9,50 @@ let lastTotalCoins = null;
 let soundOn = localStorage.getItem("alkansya-sound") !== "off";
 let audioCtx = null;
 
-// ---------------------------------------------------------
-// THEME TOGGLE
-// ---------------------------------------------------------
 function initTheme() {
   const root = document.documentElement;
   const savedTheme = localStorage.getItem("alkansya-theme") || "dark";
   root.setAttribute("data-theme", savedTheme);
 
-  document.getElementById("theme-toggle").addEventListener("click", () => {
+  const toggleHandler = () => {
     const nextTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", nextTheme);
     localStorage.setItem("alkansya-theme", nextTheme);
-  });
+  };
+
+  document.getElementById("theme-toggle")?.addEventListener("click", toggleHandler);
+  document.getElementById("theme-toggle-mob")?.addEventListener("click", toggleHandler);
 }
 
-// ---------------------------------------------------------
-// SOUND TOGGLE
-// ---------------------------------------------------------
 function initSoundToggle() {
   const soundBtn = document.getElementById("sound-toggle");
-  updateSoundButtonLabel(soundBtn);
+  const soundMob = document.getElementById("sound-toggle-mob");
+  updateSoundButtonLabels();
 
-  soundBtn.addEventListener("click", () => {
+  const toggleSound = () => {
     soundOn = !soundOn;
     localStorage.setItem("alkansya-sound", soundOn ? "on" : "off");
-    updateSoundButtonLabel(soundBtn);
-  });
+    updateSoundButtonLabels();
+  };
+
+  soundBtn?.addEventListener("click", toggleSound);
+  soundMob?.addEventListener("click", toggleSound);
 }
 
-function updateSoundButtonLabel(soundBtn) {
-  soundBtn.textContent = soundOn ? "🔊 Sound" : "🔇 Muted";
-  soundBtn.classList.toggle("active-mute", !soundOn);
+function updateSoundButtonLabels() {
+  const soundBtn = document.getElementById("sound-toggle");
+  const soundMob = document.getElementById("sound-toggle-mob");
+
+  const text = soundOn ? "Sound: On" : "Sound: Off";
+
+  if (soundBtn) {
+    soundBtn.textContent = text;
+    soundBtn.classList.toggle("active-mute", !soundOn);
+  }
+  if (soundMob) {
+    soundMob.textContent = text;
+    soundMob.classList.toggle("active-mute", !soundOn);
+  }
 }
 
 function playPing() {
@@ -70,9 +81,6 @@ function playPing() {
   }
 }
 
-// ---------------------------------------------------------
-// FORMATTING
-// ---------------------------------------------------------
 function formatPeso(amount) {
   return "₱" + Number(amount).toLocaleString("en-PH", {
     minimumFractionDigits: 2,
@@ -80,9 +88,6 @@ function formatPeso(amount) {
   });
 }
 
-// ---------------------------------------------------------
-// FETCH + RENDER (dashboard data)
-// ---------------------------------------------------------
 async function fetchDashboardData() {
   try {
     const response = await fetch("api/get_data.php", { cache: "no-store" });
@@ -110,6 +115,7 @@ function renderDashboard(data) {
 
 function renderTotal(data) {
   const totalEl = document.getElementById("total");
+  if (!totalEl) return;
   totalEl.textContent = formatPeso(data.total);
 
   const isFirstLoad = lastTotalCoins === null;
@@ -124,13 +130,15 @@ function renderTotal(data) {
 
   lastTotalCoins = data.total_coins;
 
-  const label = data.total_coins + " coin" + (data.total_coins === 1 ? "" : "s") + " inserted";
-  document.getElementById("coin-count-text").textContent = label;
+  const label = data.total_coins + " coin" + (data.total_coins === 1 ? "" : "s") + " securely inserted";
+  const countTextEl = document.getElementById("coin-count-text");
+  if (countTextEl) countTextEl.textContent = label;
 }
 
 function renderBreakdown(counts) {
   [1, 5, 10, 20].forEach((value) => {
-    document.getElementById("count-" + value).textContent = counts[value] ?? 0;
+    const el = document.getElementById("count-" + value);
+    if (el) el.textContent = counts[value] ?? 0;
   });
 }
 
@@ -140,8 +148,10 @@ function renderStatistics(counts, totalCoins) {
     const count = counts[coin] ?? 0;
     const percent = totalCoins > 0 ? Math.round((count / totalCoins) * 100) : 0;
 
-    row.querySelector(".pct").textContent = percent + "% (" + count + ")";
-    row.querySelector(".bar-fill").style.width = percent + "%";
+    const pctEl = row.querySelector(".pct");
+    const fillEl = row.querySelector(".bar-fill");
+    if (pctEl) pctEl.textContent = percent + "% (" + count + ")";
+    if (fillEl) fillEl.style.width = percent + "%";
   });
 }
 
@@ -149,12 +159,13 @@ function renderDeviceStatus(isOnline, lastSeen) {
   const dot = document.getElementById("status-dot");
   const statusText = document.getElementById("status-text");
 
-  dot.className = "dot " + (isOnline ? "online" : "offline");
-  statusText.textContent = (isOnline ? "Device online" : "Device offline") + " — last seen " + lastSeen;
+  if (dot) dot.className = "dot " + (isOnline ? "online" : "offline");
+  if (statusText) statusText.textContent = (isOnline ? "Device online" : "Device offline") + " — last seen " + lastSeen;
 }
 
 function renderRecentTransactions(transactions) {
   const container = document.getElementById("tx-container");
+  if (!container) return;
 
   if (!transactions || transactions.length === 0) {
     container.innerHTML = '<div class="empty">No transactions yet</div>';
@@ -170,127 +181,118 @@ function renderRecentTransactions(transactions) {
 }
 
 function showConnectionError() {
-  document.getElementById("status-dot").className = "dot offline";
-  document.getElementById("status-text").textContent = "Connection error";
+  const dot = document.getElementById("status-dot");
+  const statusText = document.getElementById("status-text");
+  if (dot) dot.className = "dot offline";
+  if (statusText) statusText.textContent = "Connection error";
 }
 
-// ---------------------------------------------------------
-// SAVINGS GOALS / PAG-IIPUNAN — full CRUD
-// ---------------------------------------------------------
-function initGoals() {
-  const addBtn = document.getElementById("add-goal-btn");
-  const form = document.getElementById("goal-form");
-  const saveBtn = document.getElementById("goal-save-btn");
-  const cancelBtn = document.getElementById("goal-cancel-btn");
+function initWrongCoinCorrection() {
+  const btn = document.getElementById("wrong-coin-btn");
+  const form = document.getElementById("wrong-coin-form");
+  const cancelBtn = document.getElementById("wrong-coin-cancel");
+  const confirmBtn = document.getElementById("wrong-coin-confirm");
+  const optionsWrap = document.getElementById("wrong-coin-options");
+  const msgEl = document.getElementById("wrong-coin-message");
 
-  addBtn.addEventListener("click", () => {
-    document.getElementById("goal-id").value = "";
-    document.getElementById("goal-name").value = "";
-    document.getElementById("goal-target").value = "";
-    form.style.display = "flex";
-    document.getElementById("goal-name").focus();
-  });
-
-  cancelBtn.addEventListener("click", () => {
-    form.style.display = "none";
-  });
-
-  saveBtn.addEventListener("click", () => {
-    const id = document.getElementById("goal-id").value;
-    const name = document.getElementById("goal-name").value.trim();
-    const target = document.getElementById("goal-target").value.trim();
-
-    if (!name) { alert("Please enter a goal name."); return; }
-    if (!target || Number(target) <= 0) { alert("Please enter a valid target amount."); return; }
-
-    const payload = { name: name, target_amount: Number(target) };
-
-    if (id) {
-      payload.id = Number(id);
-      fetch("api/goals.php?action=update", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }).then(() => { form.style.display = "none"; fetchGoals(); });
-    } else {
-      fetch("api/goals.php?action=add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }).then(() => { form.style.display = "none"; fetchGoals(); });
-    }
-  });
-
-  fetchGoals();
-}
-
-async function fetchGoals() {
-  try {
-    const response = await fetch("api/goals.php?action=list", { cache: "no-store" });
-    const goals = await response.json();
-    renderGoals(goals);
-  } catch (err) {
-    console.error("Failed to fetch goals:", err);
-  }
-}
-
-function renderGoals(goals) {
-  const container = document.getElementById("goals-container");
-
-  if (!goals || goals.length === 0) {
-    container.innerHTML = '<div class="empty">No savings goals yet — add one!</div>';
+  if (!btn || !form || !cancelBtn || !confirmBtn || !optionsWrap || !msgEl) {
     return;
   }
 
-  container.innerHTML = goals.map((g) => `
-    <div class="goal-row">
-      <div class="goal-info">
-        <div class="goal-name">${escapeHtml(g.name)}</div>
-        <div class="goal-target">Target: ${formatPeso(g.target_amount)}</div>
-      </div>
-      <div class="goal-actions">
-        <button onclick="editGoal(${g.id}, '${escapeAttr(g.name)}', ${g.target_amount})">✏️</button>
-        <button class="btn-delete" onclick="deleteGoal(${g.id})">🗑️</button>
-      </div>
-    </div>
-  `).join("");
+  const optionButtons = Array.from(optionsWrap.querySelectorAll(".wrong-coin-option"));
+  let selectedCoin = null;
+
+  function setSelectedCoin(coin) {
+    selectedCoin = coin;
+    optionButtons.forEach((b) => {
+      const isSelected = Number(b.dataset.coin) === coin;
+      b.classList.toggle("selected", isSelected);
+    });
+  }
+
+  function clearSelection() {
+    setSelectedCoin(null);
+  }
+
+  function showMessage(message, variant) {
+    msgEl.textContent = message;
+    msgEl.className = "wrong-coin-message";
+    if (variant) msgEl.classList.add(variant);
+  }
+
+  btn.addEventListener("click", () => {
+    showMessage("");
+    form.classList.add("is-open");
+    clearSelection();
+  });
+
+  cancelBtn.addEventListener("click", () => {
+    form.classList.remove("is-open");
+    showMessage("");
+    clearSelection();
+  });
+
+  optionsWrap.addEventListener("click", (e) => {
+    const optionBtn = e.target.closest(".wrong-coin-option");
+    if (!optionBtn || !optionsWrap.contains(optionBtn)) return;
+
+    const coin = Number(optionBtn.dataset.coin);
+    if (!coin) return;
+
+    setSelectedCoin(coin);
+  });
+
+  confirmBtn.addEventListener("click", async () => {
+    const coin = selectedCoin;
+    if (!coin) {
+      showMessage("Please select which coin you actually inserted.", "error");
+      return;
+    }
+
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = "Correcting...";
+
+    try {
+      const response = await fetch("api/correct_last_coin.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ coin: coin }),
+        cache: "no-store",
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok || !data || data.status !== "success") {
+        const errMsg = data && data.message ? data.message : "Failed to correct last coin";
+        showMessage(errMsg, "error");
+        return;
+      }
+
+      const oldCoin = data.old_coin;
+      const newCoin = data.new_coin;
+
+      if (oldCoin === newCoin) {
+        showMessage(`Last coin is already ${formatPeso(newCoin)}.`, "success");
+      } else {
+        showMessage(`Corrected: ${formatPeso(oldCoin)} → ${formatPeso(newCoin)}`, "success");
+      }
+
+      form.classList.remove("is-open");
+      fetchDashboardData();
+    } catch (err) {
+      console.error("Failed to correct last coin:", err);
+      showMessage("Connection error while correcting coin.", "error");
+    } finally {
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = "Apply Correction";
+    }
+  });
 }
 
-function editGoal(id, name, target) {
-  document.getElementById("goal-id").value = id;
-  document.getElementById("goal-name").value = name;
-  document.getElementById("goal-target").value = target;
-  document.getElementById("goal-form").style.display = "flex";
-  document.getElementById("goal-name").focus();
-}
-
-function deleteGoal(id) {
-  if (!confirm("Delete this goal?")) return;
-
-  fetch("api/goals.php?action=delete", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id: id }),
-  }).then(() => fetchGoals());
-}
-
-function escapeHtml(str) {
-  const div = document.createElement("div");
-  div.textContent = str;
-  return div.innerHTML;
-}
-
-function escapeAttr(str) {
-  return str.replace(/\\/g, "\\\\").replace(/'/g, "\\'").replace(/"/g, '\\"');
-}
-
-// ---------------------------------------------------------
-// START
-// ---------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   initSoundToggle();
-  initGoals();
+  initWrongCoinCorrection();
 
   fetchDashboardData();
   setInterval(fetchDashboardData, POLL_INTERVAL_MS);

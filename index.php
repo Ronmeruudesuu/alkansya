@@ -3,132 +3,185 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alkansya Coin Counter</title>
+  <title>Alkansya — Smart Coin Vault & Savings Tracker</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<div class="container">
+  <div class="app-layout">
 
-  <!-- ── Top bar: status left, buttons right ── -->
-  <div class="topbar">
-    <div class="status-inline">
-      <span class="dot" id="status-dot"></span>
-      <span id="status-text">Checking device…</span>
-    </div>
-    <div class="topbar-actions">
-      <button class="icon-btn" id="sound-toggle">🔊 Sound</button>
-      <button class="icon-btn" id="theme-toggle">🌓 Theme</button>
-    </div>
-  </div>
-
-  <div class="bento-grid">
-
-    <!-- ── Hero: total savings (spans full) ── -->
-    <div class="card span-full">
-      <div class="savings-card">
-        <div class="label">Total Savings</div>
-        <div class="amount" id="total">₱0.00</div>
-        <div class="subtext" id="coin-count-text">0 coins inserted</div>
-      </div>
-    </div>
-
-    <!-- ── Coin breakdown: 4 individual bento tiles ── -->
-    <div class="coin-tile" data-coin-tile="1">
-      <div class="coin-label">₱1</div>
-      <div class="coin-count" id="count-1">0</div>
-      <div class="coin-count-label">coins</div>
-    </div>
-    <div class="coin-tile" data-coin-tile="5">
-      <div class="coin-label">₱5</div>
-      <div class="coin-count" id="count-5">0</div>
-      <div class="coin-count-label">coins</div>
-    </div>
-    <div class="coin-tile" data-coin-tile="10">
-      <div class="coin-label">₱10</div>
-      <div class="coin-count" id="count-10">0</div>
-      <div class="coin-count-label">coins</div>
-    </div>
-    <div class="coin-tile" data-coin-tile="20">
-      <div class="coin-label">₱20</div>
-      <div class="coin-count" id="count-20">0</div>
-      <div class="coin-count-label">coins</div>
-    </div>
-
-    <!-- ── Coin statistics (left column) ── -->
-    <div class="card">
-      <div class="section-title">Statistics</div>
-      <div class="stats-list">
-        <div class="stat-row" data-coin="1">
-          <div class="stat-top"><span class="coin">₱1</span><span class="pct">0%</span></div>
-          <div class="bar-track"><div class="bar-fill"></div></div>
-        </div>
-        <div class="stat-row" data-coin="5">
-          <div class="stat-top"><span class="coin">₱5</span><span class="pct">0%</span></div>
-          <div class="bar-track"><div class="bar-fill"></div></div>
-        </div>
-        <div class="stat-row" data-coin="10">
-          <div class="stat-top"><span class="coin">₱10</span><span class="pct">0%</span></div>
-          <div class="bar-track"><div class="bar-fill"></div></div>
-        </div>
-        <div class="stat-row" data-coin="20">
-          <div class="stat-top"><span class="coin">₱20</span><span class="pct">0%</span></div>
-          <div class="bar-track"><div class="bar-fill"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Recent transactions (right column) ── -->
-    <div class="card">
-      <div class="section-title">
-        Recent Transactions
-        <a href="history.php">View all &rarr;</a>
-      </div>
-      <div class="tx-list" id="tx-container">
-        <div class="empty">No transactions yet</div>
-      </div>
-    </div>
-
-    <!-- ── Savings Goals / Pag-iipunan (spans full) ── -->
-    <div class="card span-full">
-      <div class="section-title">
-        🎯 Pag-iipunan
-        <button class="icon-btn" id="add-goal-btn">+ Add Goal</button>
-      </div>
-
-      <!-- Add / Edit form (hidden by default) -->
-      <div class="goal-form" id="goal-form" style="display:none;">
-        <input type="hidden" id="goal-id" value="">
-        <input type="text" id="goal-name" class="goal-input" placeholder="What are you saving for? (e.g. iPhone)">
-        <input type="number" id="goal-target" class="goal-input" placeholder="Target amount (₱)" min="1" step="1">
-        <div class="goal-form-actions">
-          <button class="btn btn-save" id="goal-save-btn">Save</button>
-          <button class="btn btn-cancel" id="goal-cancel-btn">Cancel</button>
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">AV</div>
+        <div class="brand-info">
+          <span class="brand-name">Alkansya</span>
+          <span class="brand-tag">Smart Vault</span>
         </div>
       </div>
 
-      <div class="goals-list" id="goals-container">
-        <div class="empty">No savings goals yet — add one!</div>
+      <nav class="nav-links">
+        <a href="index.php" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="history.php" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>History Log</span>
+        </a>
+        <a href="goals_page.php" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span>Savings Goals</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="device-status-box">
+          <div class="status-inline">
+            <span class="dot" id="status-dot"></span>
+            <span id="status-text">Checking device…</span>
+          </div>
+        </div>
+        <div class="preferences-bar">
+          <button class="pref-btn" id="sound-toggle" type="button" title="Toggle Sound">Sound</button>
+          <button class="pref-btn" id="theme-toggle" type="button" title="Toggle Theme">Theme</button>
+        </div>
       </div>
-    </div>
+    </aside>
 
-  </div><!-- /bento-grid -->
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-content">
 
-</div>
+      <!-- Mobile Topbar header -->
+      <header class="mobile-topbar">
+        <div class="brand">
+          <div class="brand-logo">AV</div>
+          <span class="brand-name">Alkansya</span>
+        </div>
+        <div class="topbar-actions">
+          <a href="history.php" class="icon-btn" title="View History">History</a>
+          <a href="goals_page.php" class="icon-btn" title="View Goals">Goals</a>
+          <button class="icon-btn" id="sound-toggle-mob" type="button">Sound</button>
+          <button class="icon-btn" id="theme-toggle-mob" type="button">Theme</button>
+        </div>
+      </header>
 
-<script src="assets/javascript/dashboard.js"></script>
-<script>
-// Debug: Log when script loads
-console.log('✅ Dashboard script loaded');
-console.log('🔍 Checking elements:', {
-  'add-goal-btn': document.getElementById('add-goal-btn'),
-  'goal-form': document.getElementById('goal-form'),
-  'goals-container': document.getElementById('goals-container')
-});
-console.log('🔍 Checking functions:', {
-  'initGoals': typeof initGoals,
-  'fetchGoals': typeof fetchGoals
-});
-</script>
+      <div class="bento-container">
+
+        <!-- ── HERO SAVINGS CARD (Spans full) ── -->
+        <section class="card span-full hero-card">
+          <div class="savings-card">
+            <div class="label-badge">Total Accumulated Savings</div>
+            <div class="amount" id="total">₱0.00</div>
+            <div class="subtext" id="coin-count-text">0 coins securely inserted</div>
+
+            <!-- Wrong coin correction widget -->
+            <div class="wrong-coin-section">
+              <button class="btn btn-wrong" id="wrong-coin-btn" type="button">
+                Wrong coin inserted?
+              </button>
+
+              <div class="wrong-coin-form" id="wrong-coin-form">
+                <div class="wrong-coin-title">Correct Most Recent Insert</div>
+                <div class="wrong-coin-hint">Select what you actually dropped into the vault:</div>
+                <div class="wrong-coin-options" id="wrong-coin-options">
+                  <button type="button" class="wrong-coin-option" data-coin="1">₱1</button>
+                  <button type="button" class="wrong-coin-option" data-coin="5">₱5</button>
+                  <button type="button" class="wrong-coin-option" data-coin="10">₱10</button>
+                  <button type="button" class="wrong-coin-option" data-coin="20">₱20</button>
+                </div>
+
+                <div class="wrong-coin-actions">
+                  <button class="btn btn-save" id="wrong-coin-confirm" type="button">Apply Correction</button>
+                  <button class="btn btn-cancel" id="wrong-coin-cancel" type="button">Cancel</button>
+                </div>
+              </div>
+
+              <div class="wrong-coin-message" id="wrong-coin-message"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── COIN DENOMINATION BREAKDOWN (4 BENTO TILES) ── -->
+        <div class="coin-tile" data-coin-tile="1">
+          <div class="coin-top-row">
+            <span class="coin-label">₱1 Coin</span>
+            <span class="coin-icon-mini">PHP</span>
+          </div>
+          <div class="coin-count" id="count-1">0</div>
+          <div class="coin-count-label">pieces counted</div>
+        </div>
+
+        <div class="coin-tile" data-coin-tile="5">
+          <div class="coin-top-row">
+            <span class="coin-label">₱5 Coin</span>
+            <span class="coin-icon-mini">PHP</span>
+          </div>
+          <div class="coin-count" id="count-5">0</div>
+          <div class="coin-count-label">pieces counted</div>
+        </div>
+
+        <div class="coin-tile" data-coin-tile="10">
+          <div class="coin-top-row">
+            <span class="coin-label">₱10 Coin</span>
+            <span class="coin-icon-mini">PHP</span>
+          </div>
+          <div class="coin-count" id="count-10">0</div>
+          <div class="coin-count-label">pieces counted</div>
+        </div>
+
+        <div class="coin-tile" data-coin-tile="20">
+          <div class="coin-top-row">
+            <span class="coin-label">₱20 Coin</span>
+            <span class="coin-icon-mini">PHP</span>
+          </div>
+          <div class="coin-count" id="count-20">0</div>
+          <div class="coin-count-label">pieces counted</div>
+        </div>
+
+        <!-- ── STATISTICS BREAKDOWN CARD ── -->
+        <section class="card">
+          <div class="section-title">
+            <span>Denomination Share</span>
+            <span class="title-pill">Analytics</span>
+          </div>
+          <div class="stats-list">
+            <div class="stat-row" data-coin="1">
+              <div class="stat-top"><span class="coin">₱1</span><span class="pct">0%</span></div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </div>
+            <div class="stat-row" data-coin="5">
+              <div class="stat-top"><span class="coin">₱5</span><span class="pct">0%</span></div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </div>
+            <div class="stat-row" data-coin="10">
+              <div class="stat-top"><span class="coin">₱10</span><span class="pct">0%</span></div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </div>
+            <div class="stat-row" data-coin="20">
+              <div class="stat-top"><span class="coin">₱20</span><span class="pct">0%</span></div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── RECENT TRANSACTIONS CARD ── -->
+        <section class="card">
+          <div class="section-title">
+            <span>Recent Activity</span>
+            <a href="history.php">All &rarr;</a>
+          </div>
+          <div class="tx-list" id="tx-container">
+            <div class="empty">No transactions yet</div>
+          </div>
+        </section>
+
+      </div><!-- /bento-container -->
+
+    </main>
+
+  </div><!-- /app-layout -->
+
+  <script src="assets/javascript/dashboard.js"></script>
 </body>
 </html>
