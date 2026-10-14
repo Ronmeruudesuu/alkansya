@@ -62,10 +62,81 @@ The project is built using parts from standard ESP32 starter kits (such as the L
 
 ---
 
+## Database Setup & Schema Reference Guide
+
+The system uses a MySQL / MariaDB database named `alkansya` managed through XAMPP. Below is the complete database schema and setup guide.
+
+### 1. Database Schema (`sql/schema.sql`)
+
+- **`transactions`**: Records every individual coin deposit.
+  ```sql
+  CREATE TABLE transactions (
+      id INT(11) NOT NULL AUTO_INCREMENT,
+      coin_value INT(11) NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id)
+  );
+  ```
+
+- **`device_status`**: Tracks the ESP32 device online/offline heartbeat status.
+  ```sql
+  CREATE TABLE device_status (
+      id INT(11) NOT NULL DEFAULT 1,
+      last_seen DATETIME DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id)
+  );
+  ```
+
+- **`savings_goals`**: Stores Pag-iipunan savings targets.
+  ```sql
+  CREATE TABLE savings_goals (
+      id INT(11) NOT NULL AUTO_INCREMENT,
+      name VARCHAR(255) COLLATE utf8mb4_general_ci NOT NULL,
+      target_amount DECIMAL(10,2) NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id)
+  );
+  ```
+
+- **`coin_withdrawals`**: Header records for withdrawal events.
+  ```sql
+  CREATE TABLE coin_withdrawals (
+      id INT(11) NOT NULL AUTO_INCREMENT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id)
+  );
+  ```
+
+- **`coin_withdrawal_items`**: Line items for multi-denomination withdrawals linked to `coin_withdrawals`.
+  ```sql
+  CREATE TABLE coin_withdrawal_items (
+      id INT(11) NOT NULL AUTO_INCREMENT,
+      withdrawal_id INT(11) NOT NULL,
+      coin_value INT(11) NOT NULL,
+      coin_count INT(11) NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id),
+      INDEX (withdrawal_id),
+      INDEX (coin_value),
+      CONSTRAINT fk_withdrawal_items_withdrawals
+          FOREIGN KEY (withdrawal_id) REFERENCES coin_withdrawals(id)
+          ON DELETE CASCADE
+  );
+  ```
+
+### 2. Step-by-Step Database Setup Guide
+1. Open XAMPP Control Panel and start **Apache** and **MySQL**.
+2. Open your browser and go to `http://localhost/phpmyadmin`.
+3. Create a new database named `alkansya` (or run `CREATE DATABASE IF NOT EXISTS alkansya;`).
+4. Select the `alkansya` database, go to the **SQL** tab, paste the complete schema script from `sql/schema.sql`, and click **Go**.
+5. Verify that all five tables (`transactions`, `device_status`, `savings_goals`, `coin_withdrawals`, and `coin_withdrawal_items`) are successfully created.
+
+---
+
 ## Getting Started & Local Setup
 
-1. **Install XAMPP:** Ensure Apache and MySQL/MariaDB are installed and running on your computer.
-2. **Database Setup:** Import the schema from `sql/schema.sql` into your local MySQL server to create the necessary tables (`transactions`, `device_status`, `savings_goals`, `coin_withdrawals`, etc.).
+1. **Install XAMPP:** Ensure Apache and MySQL/MariaDB are running.
+2. **Database Setup:** Follow the database guide above to initialize your `alkansya` database.
 3. **Firmware Upload:** Flash the ESP32 code using the Arduino IDE, making sure your Wi-Fi AP settings and server endpoint match your local IP (`http://192.168.4.2/alkansya/api/save_coin.php`).
 4. **Run the App:** Connect your PC to the `Alkansya-CoinCounter` Wi-Fi network, open your browser, and navigate to your local project folder to start tracking your savings!
 
