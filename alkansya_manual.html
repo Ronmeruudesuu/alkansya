@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <title>Alkansya Pocket Guide & Manual</title>
+  <style>
+    /* ============================================================
+       Alkansya Pro UI — Matching the App's Exact Design System
+       ============================================================ */
+    :root {
+      --bg-app: #0c1017;
+      --bg-sidebar: #131b26;
+      --card-bg: rgba(22, 31, 46, 0.85);
+      --card-bg-alt: rgba(30, 42, 62, 0.70);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(245, 158, 11, 0.35);
+      --text-main: #fbfdff;
+      --text-muted: #9ba8be;
+      --text-dim: #677792;
+      --accent-blue: #38bdf8;
+      --green: #f59e0b; /* Amber Gold */
+      --green-dim: rgba(245, 158, 11, 0.12);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    :root[data-theme="light"] {
+      --bg-app: #f8fafc;
+      --bg-sidebar: #ffffff;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-bg-alt: rgba(248, 250, 252, 0.95);
+      --border-subtle: rgba(15, 23, 42, 0.08);
+      --border-hover: rgba(217, 119, 6, 0.35);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --accent-blue: #0284c7;
+      --green: #d97706;
+      --green-dim: rgba(217, 119, 6, 0.08);
+      --shadow-card: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-app);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: max(20px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(40px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    /* Header Bar */
+    header {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 18px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      font-size: 15px;
+      font-weight: 800;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card-bg-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--green);
+    }
+
+    .brand-info h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      color: var(--text-main);
+    }
+
+    .brand-info p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .action-btn {
+      background: var(--card-bg-alt);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      border-color: var(--border-hover);
+      color: var(--green);
+    }
+
+    .action-btn.primary {
+      background: var(--green);
+      color: #0c1017;
+      border-color: var(--green);
+      font-weight: 700;
+    }
+
+    .action-btn.primary:hover {
+      opacity: 0.9;
+    }
+
+    :root[data-theme="light"] .action-btn.primary {
+      color: #ffffff;
+    }
+
+    /* Mode Selector Bar */
+    .mode-bar {
+      display: flex;
+      gap: 8px;
+      background: var(--card-bg);
+      padding: 6px;
+      border-radius: var(--radius-md);
+      margin-bottom: 24px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-card);
+    }
+
+    .mode-tab {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .mode-tab.active {
+      background: var(--card-bg-alt);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Brochure Grid (3 Columns) */
+    .manual-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .manual-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .manual-grid.pocket-mode {
+      display: block;
+    }
+
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s;
+    }
+
+    .panel:hover {
+      border-color: var(--border-hover);
+    }
+
+    .pocket-mode .panel {
+      display: none;
+      margin-bottom: 0;
+    }
+
+    .pocket-mode .panel.active-panel {
+      display: flex;
+    }
+
+    .panel-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--green);
+      background: var(--green-dim);
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      align-self: flex-start;
+    }
+
+    .panel h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel p {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .panel ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .panel li {
+      font-size: 0.86rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.45;
+    }
+
+    .panel li::before {
+      content: "•";
+      color: var(--green);
+      font-weight: 900;
+      font-size: 1.1rem;
+    }
+
+    .inline-code {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      background: var(--card-bg-alt);
+      border: 1px solid var(--border-subtle);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--accent-blue);
+    }
+
+    .callout {
+      background: var(--card-bg-alt);
+      border-left: 4px solid var(--green);
+      padding: 12px 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.84rem;
+      color: var(--text-main);
+      line-height: 1.5;
+      border-top: 1px solid var(--border-subtle);
+      border-right: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* Pocket mode navigation footer */
+    .pocket-nav {
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      background: var(--card-bg);
+      padding: 16px 24px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-card);
+    }
+
+    .pocket-mode ~ .pocket-nav {
+      display: flex;
+    }
+
+    .step-indicator {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    footer.footer-note {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 16px;
+    }
+
+    @media print {
+      body {
+        background: white;
+        color: black;
+        padding: 0;
+      }
+      header, .mode-bar, .pocket-nav, .header-actions {
+        display: none !important;
+      }
+      .manual-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
+      .panel {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+        background: white;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">AV</div>
+        <div class="brand-info">
+          <h1>Alkansya Pocket Guide</h1>
+          <p>Smart Coin Counter & Savings Monitor</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="action-btn" type="button" onclick="window.print()">Print Brochure</button>
+        <button class="action-btn primary" id="theme-toggle" type="button">Theme</button>
+      </div>
+    </header>
+
+    <div class="mode-bar">
+      <button class="mode-tab active" id="tab-grid" type="button" onclick="setMode('grid')">Tri-Fold Spread (All 6 Panels)</button>
+      <button class="mode-tab" id="tab-pocket" type="button" onclick="setMode('pocket')">Step-by-Step Pocket Reader</button>
+    </div>
+
+    <!-- 6 BROCHURE PANELS -->
+    <div class="manual-grid" id="manual-grid">
+
+      <!-- Panel 1: Cover -->
+      <div class="panel active-panel" data-index="0">
+        <div class="panel-tag">Panel 1 • Overview</div>
+        <h2>🪙 Alkansya Pocket Guide</h2>
+        <p>This is a quick user manual for your smart coin counter. It explains how the physical piggy bank connects to your web dashboard so you can track your savings easily.</p>
+        <div class="callout">
+          <strong>Authors:</strong> Rommel C. Daganio Jr. & Edrian Jay Bautista<br>
+          <strong>Adviser:</strong> Jay Paul T. Badenas | BSIT 3 Sec 2
+        </div>
+        <p>Keep this guide handy whether you're setting up the circuit, dropping coins, or reviewing your savings goals on your laptop.</p>
+      </div>
+
+      <!-- Panel 2: How It Works -->
+      <div class="panel" data-index="1">
+        <div class="panel-tag">Panel 2 • Architecture</div>
+        <h2>⚙️ How the System Works</h2>
+        <p>The project brings together hardware and software into three main parts:</p>
+        <ul>
+          <li><strong>The Vault:</strong> An ESP32 microcontroller with push buttons, an OLED screen, and an infrared sensor.</li>
+          <li><strong>Wi-Fi Connection:</strong> The ESP32 sets up its own wireless network (<span class="inline-code">Alkansya-CoinCounter</span>) so it can talk directly to your computer.</li>
+          <li><strong>Web Dashboard:</strong> A local XAMPP server runs PHP and MySQL to store your deposits and display your live totals.</li>
+        </ul>
+      </div>
+
+      <!-- Panel 3: Making a Deposit -->
+      <div class="panel" data-index="2">
+        <div class="panel-tag">Panel 3 • Operation</div>
+        <h2>🚀 Making a Deposit</h2>
+        <p>Follow these steps whenever you drop a coin into the box:</p>
+        <ul>
+          <li><strong>Step 1:</strong> Press the button for your coin value (₱1, ₱5, ₱10, or ₱20).</li>
+          <li><strong>Step 2:</strong> Look at the OLED screen for the <span class="inline-code">INSERT PX</span> prompt. You have 10 seconds.</li>
+          <li><strong>Step 3:</strong> Drop the coin through the slot. The infrared sensor catches it as it falls.</li>
+          <li><strong>Step 4:</strong> The system records the deposit and your laptop dashboard updates right away.</li>
+        </ul>
+      </div>
+
+      <!-- Panel 4: Hardware & Wiring -->
+      <div class="panel" data-index="3">
+        <div class="panel-tag">Panel 4 • Hardware</div>
+        <h2>⚡ Wiring Reference</h2>
+        <p>All electronic parts come from the LAFVIN ESP32 Starter Kit:</p>
+        <div class="callout">
+          <strong>OLED Display:</strong> SDA (D21) | SCL (D22)<br>
+          <strong>IR Obstacle Sensor:</strong> OUT (D18)<br>
+          <strong>Coin Buttons:</strong> D13 (₱1), D12 (₱5), D14 (₱10), D27 (₱20)<br>
+          <strong>Power:</strong> 3.3V and GND rails.
+        </div>
+        <p>The buttons use internal pull-ups (<span class="inline-code">INPUT_PULLUP</span>), so no extra resistors are required.</p>
+      </div>
+
+      <!-- Panel 5: Web Dashboard -->
+      <div class="panel" data-index="4">
+        <div class="panel-tag">Panel 5 • Web App</div>
+        <h2>📊 The Web Dashboard</h2>
+        <p>Open your browser to manage and review your savings:</p>
+        <ul>
+          <li><strong>Bento Grid:</strong> See your total savings, coin counts per denomination, and percentage breakdown bars.</li>
+          <li><strong>Wrong Coin Correction:</strong> Click "Wrong coin inserted?" on the dashboard to fix your last deposit if you pressed the wrong button.</li>
+          <li><strong>Goals & History:</strong> Manage savings targets, check past logs with pagination, and handle withdrawals.</li>
+        </ul>
+      </div>
+
+      <!-- Panel 6: Troubleshooting -->
+      <div class="panel" data-index="5">
+        <div class="panel-tag">Panel 6 • Troubleshooting</div>
+        <h2>🛠️ Troubleshooting & FAQ</h2>
+        <p>Quick solutions if something isn't working:</p>
+        <ul>
+          <li><strong>Device offline?</strong> Check that your computer is connected to the <span class="inline-code">Alkansya-CoinCounter</span> Wi-Fi network.</li>
+          <li><strong>Server error?</strong> Make sure XAMPP Apache and MySQL are running and your server URL points to <span class="inline-code">192.168.4.2</span>.</li>
+          <li><strong>Timeout?</strong> If 10 seconds pass without dropping a coin after pressing a button, the device resets back to idle.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Pocket Reader Navigation -->
+    <div class="pocket-nav" id="pocket-nav">
+      <button class="action-btn" type="button" onclick="changePanel(-1)">← Previous Panel</button>
+      <span class="step-indicator" id="step-indicator">Panel 1 of 6</span>
+      <button class="action-btn primary" type="button" onclick="changePanel(1)">Next Panel →</button>
+    </div>
+
+    <footer class="footer-note">
+      Alkansya Smart Coin Counter User Manual • Built with ESP32 & PHP • 2026
+    </footer>
+  </div>
+
+  <script>
+    // Theme Switcher matching project styling
+    const themeBtn = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    themeBtn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme');
+      const next = current === 'light' ? '' : 'light';
+      if (next) {
+        root.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      } else {
+        root.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+      root.setAttribute('data-theme', 'light');
+    }
+
+    // View Mode Switcher
+    let activeIndex = 0;
+    const panels = document.querySelectorAll('.panel');
+    const gridContainer = document.getElementById('manual-grid');
+    const pocketNav = document.getElementById('pocket-nav');
+    const stepIndicator = document.getElementById('step-indicator');
+
+    function setMode(mode) {
+      const tabGrid = document.getElementById('tab-grid');
+      const tabPocket = document.getElementById('tab-pocket');
+
+      if (mode === 'grid') {
+        gridContainer.classList.remove('pocket-mode');
+        tabGrid.classList.add('active');
+        tabPocket.classList.remove('active');
+        panels.forEach(p => p.classList.add('active-panel'));
+      } else {
+        gridContainer.classList.add('pocket-mode');
+        tabPocket.classList.add('active');
+        tabGrid.classList.remove('active');
+        activeIndex = 0;
+        updatePocketView();
+      }
+    }
+
+    function changePanel(dir) {
+      activeIndex += dir;
+      if (activeIndex < 0) activeIndex = panels.length - 1;
+      if (activeIndex >= panels.length) activeIndex = 0;
+      updatePocketView();
+    }
+
+    function updatePocketView() {
+      panels.forEach((p, idx) => {
+        if (idx === activeIndex) {
+          p.classList.add('active-panel');
+        } else {
+          p.classList.remove('active-panel');
+        }
+      });
+      stepIndicator.textContent = `Panel ${activeIndex + 1} of ${panels.length}`;
+    }
+  </script>
+</body>
+</html>
