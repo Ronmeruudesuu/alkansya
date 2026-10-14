@@ -33,6 +33,14 @@
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           <span>Savings Goals</span>
         </a>
+        <a href="withdraw_page.php" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 17h18"/><path d="M7 7v10"/><path d="M17 7v10"/></svg>
+          <span>Withdraw</span>
+        </a>
+        <a href="history_clear.php" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+          <span>Clear History</span>
+        </a>
       </nav>
 
       <div class="sidebar-footer">
@@ -61,6 +69,8 @@
         <div class="topbar-actions">
           <a href="history.php" class="icon-btn" title="View History">History</a>
           <a href="goals_page.php" class="icon-btn" title="View Goals">Goals</a>
+          <a href="withdraw_page.php" class="icon-btn" title="Withdraw Coins">Withdraw</a>
+          <a href="history_clear.php" class="icon-btn" title="Clear History">Reset</a>
           <button class="icon-btn" id="sound-toggle-mob" type="button">Sound</button>
           <button class="icon-btn" id="theme-toggle-mob" type="button">Theme</button>
         </div>
@@ -83,6 +93,7 @@
 
               <div class="wrong-coin-form" id="wrong-coin-form">
                 <div class="wrong-coin-title">Correct Most Recent Insert</div>
+                <div class="wrong-coin-hint" id="wrong-coin-last-insert">Most recent inserted: —</div>
                 <div class="wrong-coin-hint">Select what you actually dropped into the vault:</div>
                 <div class="wrong-coin-options" id="wrong-coin-options">
                   <button type="button" class="wrong-coin-option" data-coin="1">₱1</button>
@@ -98,7 +109,7 @@
               </div>
 
               <div class="wrong-coin-message" id="wrong-coin-message"></div>
-            </div>
+
           </div>
         </section>
 

@@ -28,6 +28,18 @@ if (!isValidCoin($coin)) {
     exit;
 }
 
+// Block correction when the vault has no remaining coins (e.g., user withdrew everything)
+$remaining = getTotalCoinCount($conn);
+if ($remaining <= 0) {
+    http_response_code(409);
+    echo json_encode([
+        "status" => "error",
+        "message" => "Vault is empty — cannot correct last insert."
+    ]);
+    $conn->close();
+    exit;
+}
+
 // Get the latest transaction (most recent globally)
 $stmt = $conn->prepare("SELECT id, coin_value FROM transactions ORDER BY id DESC LIMIT 1");
 $stmt->execute();

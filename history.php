@@ -58,6 +58,14 @@ $conn->close();
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           <span>Savings Goals</span>
         </a>
+        <a href="withdraw_page.php" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 17h18"/><path d="M7 7v10"/><path d="M17 7v10"/></svg>
+          <span>Withdraw</span>
+        </a>
+        <a href="history_clear.php" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+          <span>Clear History</span>
+        </a>
       </nav>
 
       <div class="sidebar-footer">
@@ -79,6 +87,8 @@ $conn->close();
         <div class="topbar-actions">
           <a href="index.php" class="icon-btn">Dashboard</a>
           <a href="goals_page.php" class="icon-btn">Goals</a>
+          <a href="withdraw_page.php" class="icon-btn">Withdraw</a>
+          <a href="history_clear.php" class="icon-btn">Reset</a>
           <button class="icon-btn" id="theme-toggle-mob" type="button">Theme</button>
         </div>
       </header>
@@ -140,19 +150,6 @@ $conn->close();
 
   </div><!-- /app-layout -->
 
-  <script>
-    const root = document.documentElement;
-    const savedTheme = localStorage.getItem("alkansya-theme") || "dark";
-    root.setAttribute("data-theme", savedTheme);
-
-    const toggleTheme = () => {
-      const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      root.setAttribute("data-theme", next);
-      localStorage.setItem("alkansya-theme", next);
-    };
-
-    document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
-    document.getElementById("theme-toggle-mob")?.addEventListener("click", toggleTheme);
-  </script>
+  <script src="assets/javascript/theme.js"></script>
 </body>
 </html>

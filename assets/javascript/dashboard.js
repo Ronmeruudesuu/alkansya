@@ -107,6 +107,7 @@ async function fetchDashboardData() {
 
 function renderDashboard(data) {
   renderTotal(data);
+  renderLastInsertedCoin(data.total_coins, data.recent);
   renderBreakdown(data.counts);
   renderStatistics(data.counts, data.total_coins);
   renderDeviceStatus(data.device_online, data.last_seen);
@@ -163,6 +164,44 @@ function renderDeviceStatus(isOnline, lastSeen) {
   if (statusText) statusText.textContent = (isOnline ? "Device online" : "Device offline") + " — last seen " + lastSeen;
 }
 
+function renderLastInsertedCoin(totalCoins, recentTransactions) {
+  const btn = document.getElementById("wrong-coin-btn");
+  const hint = document.getElementById("wrong-coin-last-insert");
+  const form = document.getElementById("wrong-coin-form");
+  const confirmBtn = document.getElementById("wrong-coin-confirm");
+  const msgEl = document.getElementById("wrong-coin-message");
+
+  if (!btn || !hint) return;
+
+  if (totalCoins <= 0) {
+    btn.disabled = true;
+    hint.textContent = "Most recent inserted: — (vault empty)";
+
+    form?.classList.remove("is-open");
+    if (confirmBtn) {
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = "Apply Correction";
+    }
+    if (msgEl) msgEl.textContent = "";
+    return;
+  }
+
+  btn.disabled = false;
+
+  const mostRecent = Array.isArray(recentTransactions) && recentTransactions.length
+    ? recentTransactions[0]
+    : null;
+
+  const label = mostRecent ? formatPeso(mostRecent.coin_value) : "—";
+  hint.textContent = `Most recent inserted: ${label}`;
+
+  // If the correction form is not open, re-enable confirm button
+  if (confirmBtn && form && !form.classList.contains("is-open")) {
+    confirmBtn.disabled = false;
+    confirmBtn.textContent = "Apply Correction";
+  }
+}
+
 function renderRecentTransactions(transactions) {
   const container = document.getElementById("tx-container");
   if (!container) return;
@@ -199,6 +238,12 @@ function initWrongCoinCorrection() {
     return;
   }
 
+  // Prevent user confusion before the first poll updates the real state
+  btn.disabled = true;
+  confirmBtn.disabled = true;
+  form.classList.remove("is-open");
+  confirmBtn.textContent = "Apply Correction";
+
   const optionButtons = Array.from(optionsWrap.querySelectorAll(".wrong-coin-option"));
   let selectedCoin = null;
 
@@ -221,6 +266,7 @@ function initWrongCoinCorrection() {
   }
 
   btn.addEventListener("click", () => {
+    if (btn.disabled) return;
     showMessage("");
     form.classList.add("is-open");
     clearSelection();
@@ -230,6 +276,12 @@ function initWrongCoinCorrection() {
     form.classList.remove("is-open");
     showMessage("");
     clearSelection();
+
+    // If vault is empty, keep confirm disabled
+    if (btn.disabled && confirmBtn) {
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = "Apply Correction";
+    }
   });
 
   optionsWrap.addEventListener("click", (e) => {
