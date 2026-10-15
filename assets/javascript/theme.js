@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
   document.getElementById("theme-toggle-mob")?.addEventListener("click", toggleTheme);
+  document.getElementById("theme-toggle-drawer")?.addEventListener("click", toggleTheme);
 
   // Sound toggle support (labels only). Real ping audio is handled elsewhere.
   let soundOn = localStorage.getItem("alkansya-sound") !== "off";
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const updateSoundButtonLabels = () => {
     const soundBtn = document.getElementById("sound-toggle");
     const soundMob = document.getElementById("sound-toggle-mob");
+    const soundDrawer = document.getElementById("sound-toggle-drawer");
 
     const text = soundOn ? "Sound: On" : "Sound: Off";
 
@@ -35,6 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
       soundMob.textContent = text;
       soundMob.classList.toggle("active-mute", !soundOn);
     }
+
+    if (soundDrawer) {
+      soundDrawer.textContent = text;
+      soundDrawer.classList.toggle("active-mute", !soundOn);
+    }
   };
 
   const toggleSound = () => {
@@ -45,6 +52,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("sound-toggle")?.addEventListener("click", toggleSound);
   document.getElementById("sound-toggle-mob")?.addEventListener("click", toggleSound);
+  document.getElementById("sound-toggle-drawer")?.addEventListener("click", toggleSound);
 
   updateSoundButtonLabels();
+
+  // Mobile navigation drawer toggle
+  const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+  const mobileMenuClose = document.getElementById("mobile-menu-close");
+  const mobileNavOverlay = document.getElementById("mobile-nav-overlay");
+
+  const openMobileMenu = () => {
+    mobileNavOverlay?.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeMobileMenu = () => {
+    mobileNavOverlay?.classList.remove("is-open");
+    document.body.style.overflow = "";
+  };
+
+  mobileMenuToggle?.addEventListener("click", openMobileMenu);
+  mobileMenuClose?.addEventListener("click", closeMobileMenu);
+  mobileNavOverlay?.addEventListener("click", (e) => {
+    if (e.target === mobileNavOverlay) {
+      closeMobileMenu();
+    }
+  });
 });

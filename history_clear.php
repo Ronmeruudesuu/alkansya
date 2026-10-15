@@ -57,20 +57,74 @@ $conn->close();
       </div>
     </aside>
 
+    <!-- Mobile Navigation Drawer / Overlay -->
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+      <div class="mobile-nav-drawer" id="mobile-nav-drawer">
+        <div class="mobile-drawer-header">
+          <div class="brand">
+            <div class="brand-logo">AV</div>
+            <div class="brand-info">
+              <span class="brand-name">Alkansya</span>
+              <span class="brand-tag">Smart Vault</span>
+            </div>
+          </div>
+          <button class="icon-btn" id="mobile-menu-close" type="button" aria-label="Close Menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <nav class="mobile-drawer-links">
+          <a href="index.php" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            <span>Dashboard</span>
+          </a>
+          <a href="history.php" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>History Log</span>
+          </a>
+          <a href="goals_page.php" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <span>Savings Goals</span>
+          </a>
+          <a href="withdraw_page.php" class="nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h18M3 17h18"/><path d="M7 7v10"/><path d="M17 7v10"/></svg>
+            <span>Withdraw</span>
+          </a>
+          <a href="history_clear.php" class="nav-item active">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+            <span>Clear History</span>
+          </a>
+        </nav>
+        <div class="mobile-drawer-footer">
+          <div class="device-status-box">
+            <div class="status-inline">
+              <span class="dot online"></span>
+              <span>Alkansya Vault</span>
+            </div>
+          </div>
+          <div class="preferences-bar">
+            <button class="pref-btn" id="theme-toggle-drawer" type="button">Theme</button>
+            <button class="pref-btn" id="sound-toggle-drawer" type="button">Sound</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
     <main class="main-content">
 
+      <!-- Mobile Topbar -->
       <header class="mobile-topbar">
         <div class="brand">
           <div class="brand-logo">AV</div>
-          <span class="brand-name">Alkansya</span>
+          <div class="brand-info">
+            <span class="brand-name">Alkansya</span>
+            <span class="brand-tag">Smart Vault</span>
+          </div>
         </div>
-        <div class="topbar-actions">
-          <a href="index.php" class="icon-btn">Dashboard</a>
-          <a href="history.php" class="icon-btn">History</a>
-          <a href="withdraw_page.php" class="icon-btn">Withdraw</a>
-          <a href="goals_page.php" class="icon-btn">Goals</a>
-          <button class="icon-btn" id="theme-toggle-mob" type="button">Theme</button>
-          <button class="icon-btn" id="sound-toggle-mob" type="button">Sound</button>
+        <div class="mobile-topbar-actions">
+          <button class="icon-btn menu-toggle-btn" id="mobile-menu-toggle" type="button" aria-label="Open menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+          </button>
         </div>
       </header>
 

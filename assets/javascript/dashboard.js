@@ -1,61 +1,15 @@
 // assets/javascript/dashboard.js
 //
 // Handles polling api/get_data.php on a timer, updating the DOM
-// with results, theme/sound toggles, and the wrong-coin correction widget.
+// with results and the wrong-coin correction widget.
 
 const POLL_INTERVAL_MS = 2000;
 
 let lastTotalCoins = null;
-let soundOn = localStorage.getItem("alkansya-sound") !== "off";
 let audioCtx = null;
 
-function initTheme() {
-  const root = document.documentElement;
-  const savedTheme = localStorage.getItem("alkansya-theme") || "dark";
-  root.setAttribute("data-theme", savedTheme);
-
-  const toggleHandler = () => {
-    const nextTheme = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", nextTheme);
-    localStorage.setItem("alkansya-theme", nextTheme);
-  };
-
-  document.getElementById("theme-toggle")?.addEventListener("click", toggleHandler);
-  document.getElementById("theme-toggle-mob")?.addEventListener("click", toggleHandler);
-}
-
-function initSoundToggle() {
-  const soundBtn = document.getElementById("sound-toggle");
-  const soundMob = document.getElementById("sound-toggle-mob");
-  updateSoundButtonLabels();
-
-  const toggleSound = () => {
-    soundOn = !soundOn;
-    localStorage.setItem("alkansya-sound", soundOn ? "on" : "off");
-    updateSoundButtonLabels();
-  };
-
-  soundBtn?.addEventListener("click", toggleSound);
-  soundMob?.addEventListener("click", toggleSound);
-}
-
-function updateSoundButtonLabels() {
-  const soundBtn = document.getElementById("sound-toggle");
-  const soundMob = document.getElementById("sound-toggle-mob");
-
-  const text = soundOn ? "Sound: On" : "Sound: Off";
-
-  if (soundBtn) {
-    soundBtn.textContent = text;
-    soundBtn.classList.toggle("active-mute", !soundOn);
-  }
-  if (soundMob) {
-    soundMob.textContent = text;
-    soundMob.classList.toggle("active-mute", !soundOn);
-  }
-}
-
 function playPing() {
+  const soundOn = localStorage.getItem("alkansya-sound") !== "off";
   if (!soundOn) return;
 
   try {
@@ -342,8 +296,6 @@ function initWrongCoinCorrection() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  initTheme();
-  initSoundToggle();
   initWrongCoinCorrection();
 
   fetchDashboardData();
