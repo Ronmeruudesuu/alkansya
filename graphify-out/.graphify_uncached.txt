@@ -1,0 +1,4 @@
+C:\xampp\htdocs\alkansya\CHANGELOG.md
+C:\xampp\htdocs\alkansya\README.md
+C:\xampp\htdocs\alkansya\alkansya_manual.html
+C:\xampp\htdocs\alkansya\alkansya_tarpaulin.html

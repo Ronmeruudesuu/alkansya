@@ -1,0 +1,189 @@
+{
+  "nodes": [
+    {
+      "id": "changelog_responsive_layout",
+      "label": "Responsive Layout Separation",
+      "file_type": "document",
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\CHANGELOG.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "changelog_global_mobile_navigation",
+      "label": "Global Mobile Navigation Across All Pages",
+      "file_type": "document",
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\CHANGELOG.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "changelog_ui_polish_bug_fixes",
+      "label": "UI Polish and Bug Fixes",
+      "file_type": "document",
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\CHANGELOG.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_smart_coin_counter",
+      "label": "Alkansya Smart Coin Counter & Savings Monitoring System",
+      "file_type": "document",
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Rommel C. Daganio Jr.",
+      "contributor": "Edrian Jay Bautista"
+    },
+    {
+      "id": "readme_hardware_interaction",
+      "label": "Hardware Interaction System Workflow",
+      "file_type": "concept",
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_web_dashboard",
+      "label": "Web Dashboard Features",
+      "file_type": "concept",
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "readme_database_schema",
+      "label": "Database Schema Reference Guide",
+      "file_type": "document",
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "alkansya_manual_pocket_guide",
+      "label": "Alkansya Pocket Guide & Manual",
+      "file_type": "document",
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\alkansya_manual.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "alkansya_manual_design_system",
+      "label": "Alkansya Pro UI Design System",
+      "file_type": "rationale",
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\alkansya_manual.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    },
+    {
+      "id": "alkansya_tarpaulin_banner",
+      "label": "Alkansya Tarpaulin Banner",
+      "file_type": "image",
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\alkansya_tarpaulin.html",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "changelog_responsive_layout",
+      "target": "readme_web_dashboard",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\CHANGELOG.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "changelog_global_mobile_navigation",
+      "target": "readme_web_dashboard",
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\CHANGELOG.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_hardware_interaction",
+      "target": "readme_smart_coin_counter",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_web_dashboard",
+      "target": "readme_smart_coin_counter",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "readme_database_schema",
+      "target": "readme_smart_coin_counter",
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\README.md",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "alkansya_manual_design_system",
+      "target": "alkansya_manual_pocket_guide",
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\alkansya_manual.html",
+      "source_location": null,
+      "weight": 1.0
+    },
+    {
+      "source": "alkansya_tarpaulin_banner",
+      "target": "readme_smart_coin_counter",
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "C:\\xampp\\htdocs\\alkansya\\alkansya_tarpaulin.html",
+      "source_location": null,
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

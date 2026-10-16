@@ -1,0 +1,158 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1791872033.7588372,
+    "seen": 1792160050.0245883,
+    "ast_hash": "a7c2e8cee1616eb255de4eda25629703",
+    "semantic_hash": "a7c2e8cee1616eb255de4eda25629703"
+  },
+  "api/clear_history.php": {
+    "mtime": 1791892892.3881269,
+    "seen": 1792160050.0245934,
+    "ast_hash": "e34c37fdec35ac3d7da3bfb5aaaab530",
+    "semantic_hash": "e34c37fdec35ac3d7da3bfb5aaaab530"
+  },
+  "api/correct_last_coin.php": {
+    "mtime": 1791890186.3215287,
+    "seen": 1792160050.024596,
+    "ast_hash": "d50e7cf57954b2d4199567332da9f060",
+    "semantic_hash": "d50e7cf57954b2d4199567332da9f060"
+  },
+  "api/get_data.php": {
+    "mtime": 1787310120.5342486,
+    "seen": 1792160050.0245974,
+    "ast_hash": "0f6bdfc9167f5b7aa05130366d23a1e1",
+    "semantic_hash": "0f6bdfc9167f5b7aa05130366d23a1e1"
+  },
+  "api/goals.php": {
+    "mtime": 1791610232.8302534,
+    "seen": 1792160050.0245988,
+    "ast_hash": "2b1d55377cc23a0fb3be140dcac3e4cd",
+    "semantic_hash": "2b1d55377cc23a0fb3be140dcac3e4cd"
+  },
+  "api/heartbeat.php": {
+    "mtime": 1787310581.7908697,
+    "seen": 1792160050.0245998,
+    "ast_hash": "7b441f64049f180e8902ab552aabb73b",
+    "semantic_hash": "7b441f64049f180e8902ab552aabb73b"
+  },
+  "api/manual_insert.php": {
+    "mtime": 1791889398.7132297,
+    "seen": 1792160050.024601,
+    "ast_hash": "4454b0a1260efc07f3b7780bd4b6251d",
+    "semantic_hash": "4454b0a1260efc07f3b7780bd4b6251d"
+  },
+  "api/save_coin.php": {
+    "mtime": 1787309117.6722865,
+    "seen": 1792160050.0246022,
+    "ast_hash": "e168155c23ebe05cc063fcb4ba49e612",
+    "semantic_hash": "e168155c23ebe05cc063fcb4ba49e612"
+  },
+  "api/withdraw.php": {
+    "mtime": 1791946198.4567213,
+    "seen": 1792160050.0246031,
+    "ast_hash": "ceedb653b8aed51ce18e46cc362b06f2",
+    "semantic_hash": "ceedb653b8aed51ce18e46cc362b06f2"
+  },
+  "assets/javascript/clear_history.js": {
+    "mtime": 1791894688.4318142,
+    "seen": 1792160050.024604,
+    "ast_hash": "e7b6c2056f2c9f7f37983cede411594d",
+    "semantic_hash": "e7b6c2056f2c9f7f37983cede411594d"
+  },
+  "assets/javascript/dashboard.js": {
+    "mtime": 1792033694.9382453,
+    "seen": 1792160050.0246053,
+    "ast_hash": "0cd9a11a9484c70b43735c2d74d81a2f",
+    "semantic_hash": "0cd9a11a9484c70b43735c2d74d81a2f"
+  },
+  "assets/javascript/goals.js": {
+    "mtime": 1791824111.4235795,
+    "seen": 1792160050.0246062,
+    "ast_hash": "50ee67545c7d56417c843455d37a1e40",
+    "semantic_hash": "50ee67545c7d56417c843455d37a1e40"
+  },
+  "assets/javascript/theme.js": {
+    "mtime": 1792032645.0971336,
+    "seen": 1792160050.0246072,
+    "ast_hash": "5898879cfac71c0a87d0d57642bf99af",
+    "semantic_hash": "5898879cfac71c0a87d0d57642bf99af"
+  },
+  "assets/javascript/withdraw.js": {
+    "mtime": 1791946445.017638,
+    "seen": 1792160050.0246084,
+    "ast_hash": "184cd440211e5fe7dd80cbd8d7d14b83",
+    "semantic_hash": "184cd440211e5fe7dd80cbd8d7d14b83"
+  },
+  "config/database.php": {
+    "mtime": 1791822796.40259,
+    "seen": 1792160050.0246093,
+    "ast_hash": "76a4b72fd4050a3f7e31829e3d2a3e2b",
+    "semantic_hash": "76a4b72fd4050a3f7e31829e3d2a3e2b"
+  },
+  "goals_page.php": {
+    "mtime": 1792033179.0102656,
+    "seen": 1792160050.0246103,
+    "ast_hash": "9a938c69edb8b94967c0c35c3fd1c97f",
+    "semantic_hash": "9a938c69edb8b94967c0c35c3fd1c97f"
+  },
+  "history.php": {
+    "mtime": 1792033178.9681654,
+    "seen": 1792160050.0246112,
+    "ast_hash": "d13cd33f3ea4bf3b6cb3634fcc535dae",
+    "semantic_hash": "d13cd33f3ea4bf3b6cb3634fcc535dae"
+  },
+  "history_clear.php": {
+    "mtime": 1792033179.0968359,
+    "seen": 1792160050.0246122,
+    "ast_hash": "d6dab1984869383dc5cec317fb62860c",
+    "semantic_hash": "d6dab1984869383dc5cec317fb62860c"
+  },
+  "includes/functions.php": {
+    "mtime": 1791946195.0744064,
+    "seen": 1792160050.0246131,
+    "ast_hash": "9d4bcc0710a7b2bb866c8878e9e64ec6",
+    "semantic_hash": "9d4bcc0710a7b2bb866c8878e9e64ec6"
+  },
+  "index.php": {
+    "mtime": 1792033627.110243,
+    "seen": 1792160050.024614,
+    "ast_hash": "6e94bd6e0757c0641c33fe3f7237e254",
+    "semantic_hash": "6e94bd6e0757c0641c33fe3f7237e254"
+  },
+  "sql/schema.sql": {
+    "mtime": 1791970219.0449884,
+    "seen": 1792160050.024615,
+    "ast_hash": "27244fe0393c8d2fefb895e96d92654d",
+    "semantic_hash": "27244fe0393c8d2fefb895e96d92654d"
+  },
+  "withdraw_page.php": {
+    "mtime": 1792033179.056187,
+    "seen": 1792160050.0246165,
+    "ast_hash": "65dc7c0d2fcc0a9822fe31b12743cc75",
+    "semantic_hash": "65dc7c0d2fcc0a9822fe31b12743cc75"
+  },
+  "CHANGELOG.md": {
+    "mtime": 1792034105.550849,
+    "seen": 1792160050.0246177,
+    "ast_hash": "9ba8c4b07f52db19cf750db8ae44a952",
+    "semantic_hash": "9ba8c4b07f52db19cf750db8ae44a952"
+  },
+  "README.md": {
+    "mtime": 1791970231.950086,
+    "seen": 1792160050.0246189,
+    "ast_hash": "417ba4af540c175a06318149e059468d",
+    "semantic_hash": "417ba4af540c175a06318149e059468d"
+  },
+  "alkansya_manual.html": {
+    "mtime": 1791969415.334973,
+    "seen": 1792160050.0246198,
+    "ast_hash": "fb419da77db6178d390f76761492c682",
+    "semantic_hash": "fb419da77db6178d390f76761492c682"
+  },
+  "alkansya_tarpaulin.html": {
+    "mtime": 1792156072.7828715,
+    "seen": 1792160050.0246208,
+    "ast_hash": "98f20cdf06661ef0b796797f2c665ea3",
+    "semantic_hash": "98f20cdf06661ef0b796797f2c665ea3"
+  }
+}
